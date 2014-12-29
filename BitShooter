@@ -1,0 +1,46 @@
+using System;
+
+class BitShooter
+{
+    static void Main()
+    {
+        ulong n = ulong.Parse(Console.ReadLine());
+        for (int i = 0; i < 3; i++)
+        {
+            string[] shoot = Console.ReadLine().Split();
+            int center = int.Parse(shoot[0]);
+            int size = int.Parse(shoot[1]);
+            for (int bit = center - size / 2; bit < center + size / 2; bit++)
+            {
+                if (bit >= 0 && bit < 64)
+                {
+                    n = n & ~(ulong)(1 << bit);
+                }
+            }
+        }
+        int left = 0;
+        int right = 0;
+        for (int i = 0; i < 32; i++)
+        {
+            ulong num = 0;
+            num = (n >> i) & 1;
+            if (num == 1)
+            {
+                left++;
+                num = 0;
+            }
+        }
+        for (int i = 32; i < 64; i++)
+        {
+            ulong num = 0;
+            num = (n >> i) & 1;
+            if (num == 1)
+            {
+                right++;
+                num = 0;
+            }
+        }
+        Console.WriteLine("left: "+left);
+        Console.WriteLine("right: " + right);
+    }
+}
